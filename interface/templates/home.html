@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Transaction Protocol - Secure Communication Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0 0 15px 0;
+            font-size: 3em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 5px 0;
+            opacity: 0.9;
+            font-size: 1.2em;
+        }
+        .content {
+            padding: 50px;
+        }
+        .role-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        @media (max-width: 1200px) {
+            .role-cards {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+        .role-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .role-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .role-card.hr {
+            border-left: 6px solid #e74c3c;
+        }
+        .role-card.hr:hover {
+            background: linear-gradient(135deg, #ffeaea, #f8f9fa);
+        }
+        .role-card.seller {
+            border-left: 6px solid #f39c12;
+        }
+        .role-card.seller:hover {
+            background: linear-gradient(135deg, #fff8e1, #f8f9fa);
+        }
+        .role-card.buyer {
+            border-left: 6px solid #3498db;
+        }
+        .role-card.buyer:hover {
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+        }
+        .role-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        .role-title {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .role-subtitle {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .role-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            margin-top: auto;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .btn.hr {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        .btn.seller {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        .btn.buyer {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        .features {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        .features h3 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .feature-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .feature-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .feature-item p {
+            color: #666;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 Property Transaction Protocol</h1>
+            <p>Secure Communication Hub for Property Transactions</p>
+            <p>RSA-2048 + AES-256 Encryption | UK Legal Compliance</p>
+        </div>
+        
+        <div class="content">
+            <div class="role-cards">
+                <!-- H&R Hub Card -->
+                <div class="role-card hr">
+                    <div>
+                        <div class="role-icon">🏛️</div>
+                        <div class="role-title">H&R Hub Control</div>
+                        <div class="role-subtitle">Hackit & Run LLP</div>
+                        <div class="role-description">
+                            Central communication hub ensuring legal compliance and secure message routing between all parties. 
+                            Manages the complete transaction protocol with full audit trail.
+                        </div>
+                    </div>
+                    <a href="/hr" class="btn hr">🔐 Access H&R Hub</a>
+                </div>
+                
+                <!-- Seller's Solicitor Card -->
+                <div class="role-card seller">
+                    <div>
+                        <div class="role-icon">🏢</div>
+                        <div class="role-title">Seller's Portal</div>
+                        <div class="role-subtitle">Legal Representative</div>
+                        <div class="role-description">
+                            Secure interface for the seller's legal representative to manage property sale communications 
+                            and documentation through the compliance hub.
+                        </div>
+                    </div>
+                    <a href="/seller" class="btn seller">⚖️ Seller Access</a>
+                </div>
+                
+                <!-- Buyer Card -->
+                <div class="role-card buyer">
+                    <div>
+                        <div class="role-icon">🏠</div>
+                        <div class="role-title">Buyer Portal</div>
+                        <div class="role-subtitle">Mrs. Harvey</div>
+                        <div class="role-description">
+                            Personal interface for the property buyer to securely communicate with legal representatives 
+                            and manage all transaction-related documents.
+                        </div>
+                    </div>
+                    <a href="/buyer" class="btn buyer">🔑 Buyer Access</a>
+                </div>
+            </div>
+            
+            <div class="features">
+                <h3>🛡️ Security & Compliance Features</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h4>🔐 RSA-2048 Encryption</h4>
+                        <p>Military-grade public key cryptography ensuring maximum security for all communications.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🔒 AES-256 Hybrid</h4>
+                        <p>Advanced symmetric encryption for efficient bulk data protection with perfect forward secrecy.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>✍️ Digital Signatures</h4>
+                        <p>Legally binding cryptographic signatures providing non-repudiation and authenticity.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🏛️ UK Legal Compliance</h4>
+                        <p>Full compliance with UK property law, data protection regulations, and legal requirements.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📋 Complete Audit Trail</h4>
+                        <p>Comprehensive logging of all transactions with timestamps and digital evidence.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🛡️ Protocol Security</h4>
+                        <p>Enforces proper communication channels preventing direct buyer-seller contact.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Property Transaction Protocol v2.0</strong> | Secure • Compliant • Professional</p>
+            <p>Powered by Advanced Cryptography & UK Legal Standards</p>
+        </div>
+    </div>
+</body>
+</html>

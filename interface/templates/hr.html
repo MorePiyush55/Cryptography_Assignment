@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H&R Hub Interface - Property Transaction Protocol</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .action-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            border-left: 5px solid #e74c3c;
+            transition: transform 0.2s;
+        }
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .action-card h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .transactions {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        .transaction-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e74c3c;
+        }
+        .nav-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-links a {
+            color: #e74c3c;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ H&R Hub Central Control</h1>
+            <p>Hackit & Run LLP - Property Transaction Management</p>
+            <p>Secure Communication Hub</p>
+        </div>
+        
+        <div class="content">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message" style="margin-bottom: 20px; padding: 15px; border-radius: 8px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <!-- Assignment Compliance Monitor -->
+            <div class="transactions" style="background: #e8f5e8; border-left: 4px solid #27ae60;">
+                <h3>📋 Assignment Protocol Compliance Monitor</h3>
+                <p style="color: #666; font-size: 0.9em;">Real-time monitoring of Mrs. Harvey & Mr. Facey property transaction protocol compliance</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #27ae60;">
+                        <h4>🔒 Communication Rules</h4>
+                        <ul style="margin: 10px 0; color: #333;">
+                            <li>✅ H&R ↔ Seller's Solicitor: <strong>ALLOWED</strong></li>
+                            <li>✅ H&R ↔ Mrs. Harvey: <strong>ALLOWED</strong></li>
+                            <li>❌ Mrs. Harvey ↔ Seller's Solicitor: <strong>BLOCKED</strong></li>
+                            <li>❌ H&R ↔ Mr. Facey: <strong>BLOCKED</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+                        <h4>📝 Contract Exchange Process</h4>
+                        <ol style="margin: 10px 0; color: #333; font-size: 0.9em;">
+                            <li>Seller's Solicitor → H&R (contract)</li>
+                            <li>H&R → Mrs. Harvey (forward contract)</li>
+                            <li>Mrs. Harvey → H&R (digitally signed)</li>
+                            <li>H&R → Seller's Solicitor (signed contract)</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                {% if security_relationships %}
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12; margin: 15px 0;">
+                    <h4>🔐 Security Relationship Status</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <strong>H&R ↔ Seller's Solicitor:</strong><br>
+                            {% if security_relationships.hr_seller.established %}
+                                <span style="color: #27ae60;">✅ Established ({{ 'Scenario A' if security_relationships.hr_seller.key_exchange_complete else 'Scenario B' }})</span>
+                            {% else %}
+                                <span style="color: #e74c3c;">⏳ Not Established (First-time - Scenario B)</span>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <strong>H&R ↔ Mrs. Harvey:</strong><br>
+                            <span style="color: #27ae60;">✅ Established Client (Scenario A)</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if contract_exchanges %}
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #9b59b6; margin: 15px 0;">
+                    <h4>📋 Contract Exchange Log</h4>
+                    {% for exchange in contract_exchanges %}
+                    <div style="padding: 8px; margin: 5px 0; background: #f8f9fa; border-radius: 4px;">
+                        <strong>Step {{ exchange.step }}:</strong> {{ exchange.sender }} → {{ exchange.receiver }}<br>
+                        <small style="color: #666;">{{ exchange.timestamp }} | {{ exchange.status }} | 🏛️ UK Law Compliant</small>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Secure Message Hub Section (Messages to Forward) -->
+            <div class="transactions" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+                <h3>📨 Secure Message Hub</h3>
+                <p style="color: #666; font-size: 0.9em;">Messages waiting to be forwarded - Once forwarded, they will be removed from this hub</p>
+                {% if hub_messages %}
+                    {% for message in hub_messages %}
+                    <div style="background: white; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #ffc107;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div>
+                                <strong>🕒 {{ message.timestamp }}</strong><br>
+                                <small style="color: #666;">
+                                    {{ message.sender }} → {{ message.receiver }}
+                                </small>
+                            </div>
+                            <div style="display: flex; gap: 5px;">
+                                <button onclick="toggleMessage('hub_msg_{{ message.id }}')" style="padding: 5px 10px; background: #17a2b8; color: white; border: none; border-radius: 3px; cursor: pointer;">👁️ View Full</button>
+                                {% if message.sender == 'Mrs. Harvey (Property Buyer)' %}
+                                    <button data-msg-id="{{ message.id }}" data-recipient="seller" data-content="{{ message.full_content|replace('\"', '&quot;')|replace('\n', '\\n') }}" onclick="forwardFromData(this)" style="padding: 5px 10px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer;">📤 Forward to Seller</button>
+                                {% elif message.sender == 'Seller\'s Solicitor' %}
+                                    <button data-msg-id="{{ message.id }}" data-recipient="buyer" data-content="{{ message.full_content|replace('\"', '&quot;')|replace('\n', '\\n') }}" onclick="forwardFromData(this)" style="padding: 5px 10px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer;">📤 Forward to Buyer</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Preview (always visible) -->
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                            <strong>📄 Message Preview:</strong><br>
+                            <span style="color: #333;">{{ (message.full_content or message.description)[:150] }}{% if (message.full_content or message.description)|length > 150 %}...{% endif %}</span>
+                        </div>
+                        
+                        <!-- Full message (toggleable) -->
+                        <div id="hub_msg_{{ message.id }}" style="display: none; background: #f8e8e8; padding: 15px; border-radius: 5px; margin-top: 10px; border: 1px solid #ffc107;">
+                            <strong>📧 COMPLETE MESSAGE:</strong><br><br>
+                            <div style="background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #ffc107; font-family: monospace; white-space: pre-wrap; line-height: 1.6;">{{ message.full_content or message.description }}</div>
+                            <br>
+                            <div style="text-align: center; padding: 10px; background: #fff3cd; border-radius: 5px;">
+                                <strong>⏳ Status: Waiting to be forwarded - Will be removed after forwarding</strong>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No messages in the hub yet. Incoming messages will appear here for forwarding!</p>
+                {% endif %}
+            </div>
+
+            <!-- Message Sending Actions -->
+            <div class="action-cards">
+                <div class="action-card">
+                    <h3>📤 Send to Seller's Solicitor</h3>
+                    <p>Send new messages directly to the seller's legal representative</p>
+                    <form method="POST" action="/send_message">
+                        <input type="hidden" name="sender" value="hr">
+                        <input type="hidden" name="receiver" value="seller">
+                        <textarea name="message" placeholder="New message to Seller's Solicitor..." required style="width: 100%; height: 100px; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ddd; resize: vertical;"></textarea>
+                        <button type="submit" class="btn">🔒 Send to Seller</button>
+                    </form>
+                </div>
+                
+                <div class="action-card">
+                    <h3>📤 Send to Mrs. Harvey</h3>
+                    <p>Send new messages directly to the property buyer</p>
+                    <form method="POST" action="/send_message">
+                        <input type="hidden" name="sender" value="hr">
+                        <input type="hidden" name="receiver" value="buyer">
+                        <textarea name="message" placeholder="New message to Mrs. Harvey..." required style="width: 100%; height: 100px; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ddd; resize: vertical;"></textarea>
+                        <button type="submit" class="btn">🔒 Send to Mrs. Harvey</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- All Transactions History -->
+            <div class="transactions">
+                <h3>📊 Transaction History</h3>
+                <p style="color: #666; font-size: 0.9em;">Complete record of all processed communications</p>
+                {% if transactions %}
+                    {% for transaction in transactions %}
+                    <div style="background: white; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #e74c3c;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div>
+                                <strong>🕒 {{ transaction.timestamp }}</strong><br>
+                                <small style="color: #666;">
+                                    {% if transaction.sender == 'H&R (Hackit & Run LLP)' %}
+                                        <span style="color: #e74c3c; font-weight: bold;">📤 SENT:</span> To {{ transaction.receiver }}
+                                    {% else %}
+                                        <span style="color: #28a745; font-weight: bold;">📥 RECEIVED:</span> From {{ transaction.sender }}
+                                    {% endif %}
+                                </small>
+                            </div>
+                            <div style="display: flex; gap: 5px;">
+                                <button onclick="toggleMessage('hist_msg_{{ loop.index0 }}')" style="padding: 5px 10px; background: #17a2b8; color: white; border: none; border-radius: 3px; cursor: pointer;">👁️ View Full</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview (always visible) -->
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                            <strong>📄 Message Preview:</strong><br>
+                            <span style="color: #333;">{{ (transaction.full_content or transaction.description)[:150] }}{% if (transaction.full_content or transaction.description)|length > 150 %}...{% endif %}</span>
+                        </div>
+                        
+                        <!-- Full message (toggleable) -->
+                        <div id="hist_msg_{{ loop.index0 }}" style="display: none; background: #f8e8e8; padding: 15px; border-radius: 5px; margin-top: 10px; border: 1px solid #e74c3c;">
+                            <strong>📧 COMPLETE MESSAGE:</strong><br><br>
+                            <div style="background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #e74c3c; font-family: monospace; white-space: pre-wrap; line-height: 1.6;">{{ transaction.full_content or transaction.description }}</div>
+                            <br>
+                            <div style="text-align: center; padding: 10px; background: #f5e6e6; border-radius: 5px;">
+                                <strong>✅ Status: Processed by Hub - Secure & Legally Compliant</strong>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No transactions processed yet. The hub is ready for secure communications!</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/">🏠 Home</a>
+            <a href="/seller">🏢 Seller Interface</a>
+            <a href="/buyer">🏠 Buyer Interface</a>
+        </div>
+    </div>
+    
+    <script>
+        function toggleMessage(messageId) {
+            const messageDiv = document.getElementById(messageId);
+            const button = document.querySelector(`button[onclick="toggleMessage('${messageId}')"]`);
+            
+            if (messageDiv.style.display === 'none' || messageDiv.style.display === '') {
+                messageDiv.style.display = 'block';
+                button.textContent = '🔼 Hide Full';
+                button.style.background = '#dc3545';
+            } else {
+                messageDiv.style.display = 'none';
+                button.textContent = '👁️ View Full';
+                button.style.background = '#17a2b8';
+            }
+        }
+        
+        function forwardFromData(button) {
+            const messageId = button.getAttribute('data-msg-id');
+            const recipient = button.getAttribute('data-recipient');
+            const messageContent = button.getAttribute('data-content').replace(/\\n/g, '\n');
+            
+            forwardMessage(messageId, recipient, messageContent);
+        }
+        
+        function forwardMessage(messageId, recipient, messageContent) {
+            // Show sending indicator
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #28a745; color: white; padding: 15px; border-radius: 5px; z-index: 1000;';
+            loadingMsg.textContent = '📤 Forwarding and removing from hub...';
+            document.body.appendChild(loadingMsg);
+            
+            // Create and submit form for forwarding
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/forward_message';
+            
+            const messageIdInput = document.createElement('input');
+            messageIdInput.type = 'hidden';
+            messageIdInput.name = 'message_id';
+            messageIdInput.value = messageId;
+            
+            const recipientInput = document.createElement('input');
+            recipientInput.type = 'hidden';
+            recipientInput.name = 'recipient';
+            recipientInput.value = recipient;
+            
+            const messageInput = document.createElement('input');
+            messageInput.type = 'hidden';
+            messageInput.name = 'message_content';
+            messageInput.value = messageContent;
+            
+            form.appendChild(messageIdInput);
+            form.appendChild(recipientInput);
+            form.appendChild(messageInput);
+            
+            document.body.appendChild(form);
+            
+            // Submit immediately
+            form.submit();
+        }
+        
+        // Form handling
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.textContent = '🔄 Sending...';
+                    submitBtn.disabled = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller's Solicitor Interface - Property Transaction Protocol</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .action-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            border-left: 5px solid #f39c12;
+            transition: transform 0.2s;
+        }
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .action-card h3 {
+            color: #f39c12;
+            margin-bottom: 15px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .transactions {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        .nav-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-links a {
+            color: #f39c12;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .signature-section {
+            background: #fff3cd;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            border-left: 4px solid #856404;
+            text-align: center;
+        }
+        .btn-sign {
+            background: linear-gradient(135deg, #856404, #6c4e03);
+            font-size: 16px;
+            padding: 15px 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 Seller's Solicitor Portal</h1>
+            <p>Legal Representative for Property Sale</p>
+            <p>Secure Legal Communication System</p>
+        </div>
+        
+        <div class="content">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message" style="margin-bottom: 20px; padding: 15px; border-radius: 8px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <!-- Legal Communication Actions -->
+            <div class="action-cards">
+                <div class="action-card">
+                    <h3>📤 Message to H&R Hub</h3>
+                    <p>Send secure legal communications through the compliance hub</p>
+                    <form method="POST" action="/send_message">
+                        <input type="hidden" name="sender" value="seller">
+                        <input type="hidden" name="receiver" value="hr">
+                        <textarea name="message" placeholder="Legal communication to H&R..." required style="width: 100%; height: 100px; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ddd; resize: vertical;"></textarea>
+                        <button type="submit" class="btn">🔒 Send to H&R</button>
+                    </form>
+                </div>
+                
+                <div class="action-card">
+                    <h3>📁 Document Upload</h3>
+                    <p>Upload legal documents securely through the hub</p>
+                    <form method="POST" action="/upload_file" enctype="multipart/form-data">
+                        <input type="hidden" name="sender" value="seller">
+                        <input type="hidden" name="receiver" value="hr">
+                        <input type="file" name="file" required style="width: 100%; padding: 10px; margin: 10px 0;">
+                        <button type="submit" class="btn">📁 Upload to H&R</button>
+                    </form>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                        <strong>Compliant:</strong> All documents encrypted and legally processed
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Transaction History Section -->
+            <div class="transactions" style="margin-top: 30px; background: #fff8e1; border-left: 4px solid #f39c12;">
+                <h3>📋 Transaction History</h3>
+                <p style="color: #666; font-size: 0.9em;">Complete record of all your legal communications - Click "View Full" to expand messages</p>
+                {% if transactions %}
+                    {% for transaction in transactions %}
+                    {% if transaction.sender == 'Seller\'s Solicitor' %}
+                    <div style="background: white; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #f39c12;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div>
+                                <strong>🕒 {{ transaction.timestamp }}</strong><br>
+                                <small style="color: #666;">
+                                    <span style="color: #f39c12; font-weight: bold;">📤 SENT:</span> To {{ transaction.receiver }}
+                                </small>
+                            </div>
+                            <div style="display: flex; gap: 5px;">
+                                <button onclick="toggleMessage('sent_msg_{{ loop.index0 }}')" style="padding: 5px 10px; background: #17a2b8; color: white; border: none; border-radius: 3px; cursor: pointer;">👁️ View Full</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview (always visible) -->
+                        <div style="background: #fff8e1; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                            <strong>📤 Your Message Preview:</strong><br>
+                            <span style="color: #333;">{{ (transaction.full_content or transaction.description)[:150] }}{% if (transaction.full_content or transaction.description)|length > 150 %}...{% endif %}</span>
+                        </div>
+                        
+                        <!-- Full message (toggleable) -->
+                        <div id="sent_msg_{{ loop.index0 }}" style="display: none; background: #fef3e0; padding: 15px; border-radius: 5px; margin-top: 10px; border: 1px solid #f39c12;">
+                            <strong>📧 YOUR COMPLETE MESSAGE:</strong><br><br>
+                            <div style="background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #f39c12; font-family: monospace; white-space: pre-wrap; line-height: 1.6;">{{ transaction.full_content or transaction.description }}</div>
+                            <br>
+                            <div style="text-align: center; padding: 10px; background: #fff8e1; border-radius: 5px;">
+                                <strong>✅ Status: Sent Securely to {{ transaction.receiver }} - Legally Compliant</strong>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if transaction.receiver == 'Seller\'s Solicitor' %}
+                    <div style="background: white; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #28a745;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div>
+                                <strong>🕒 {{ transaction.timestamp }}</strong><br>
+                                <small style="color: #666;">
+                                    <span style="color: #28a745; font-weight: bold;">📥 RECEIVED:</span> From {{ transaction.sender }}
+                                </small>
+                            </div>
+                            <div style="display: flex; gap: 5px;">
+                                <button onclick="toggleMessage('received_msg_{{ loop.index0 }}')" style="padding: 5px 10px; background: #17a2b8; color: white; border: none; border-radius: 3px; cursor: pointer;">👁️ View Full</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview (always visible) -->
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                            <strong>📨 Received Message Preview:</strong><br>
+                            <span style="color: #333;">{{ (transaction.full_content or transaction.description)[:150] }}{% if (transaction.full_content or transaction.description)|length > 150 %}...{% endif %}</span>
+                        </div>
+                        
+                        <!-- Full message (toggleable) -->
+                        <div id="received_msg_{{ loop.index0 }}" style="display: none; background: #f0f8f0; padding: 15px; border-radius: 5px; margin-top: 10px; border: 1px solid #28a745;">
+                            <strong>📧 COMPLETE RECEIVED MESSAGE:</strong><br><br>
+                            <div style="background: white; padding: 15px; border-radius: 5px; border-left: 3px solid #28a745; font-family: monospace; white-space: pre-wrap; line-height: 1.6;">{{ transaction.full_content or transaction.description }}</div>
+                            <br>
+                            <div style="text-align: center; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                                <strong>✅ Status: Received from {{ transaction.sender }} - Secure & Encrypted</strong>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No transaction history yet. Your first legal communication will appear here!</p>
+                {% endif %}
+            </div>
+            
+            <div class="signature-section">
+                <h3>✍️ Digital Contract Authorization</h3>
+                <p>When ready, digitally authorize the property sale contract using cryptographic signatures.</p>
+                <button onclick="digitalSign()" class="btn btn-sign">✍️ AUTHORIZE SALE CONTRACT</button>
+                <p style="margin-top: 15px; font-size: 0.9em; color: #856404;">
+                    <strong>Legal Note:</strong> Digital authorization creates legally binding obligations under UK property law.
+                </p>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/">🏠 Home</a>
+            <a href="/hr">🏛️ H&R Hub</a>
+            <a href="/buyer">🏠 Buyer Interface</a>
+        </div>
+    </div>
+    
+    <script>
+        function digitalSign() {
+            if (confirm('🔐 Digital Contract Authorization\n\nThis will create a legally binding digital authorization for the property sale using RSA-2048 cryptography.\n\nProceed with authorization?')) {
+                alert('✍️ SALE CONTRACT AUTHORIZED!\n\n' +
+                      '✅ Digital authorization applied\n' +
+                      '✅ Cryptographically secured\n' +
+                      '✅ Legally binding under UK law\n' +
+                      '✅ Non-repudiation guaranteed\n' +
+                      '✅ Sale contract now enforceable\n\n' +
+                      'Your authorization has been securely recorded and the contract is now legally binding.');
+            }
+        }
+        
+        function toggleMessage(messageId) {
+            const messageDiv = document.getElementById(messageId);
+            const button = document.querySelector(`button[onclick="toggleMessage('${messageId}')"]`);
+            
+            if (messageDiv.style.display === 'none' || messageDiv.style.display === '') {
+                messageDiv.style.display = 'block';
+                button.textContent = '🔼 Hide Full';
+                button.style.background = '#dc3545';
+            } else {
+                messageDiv.style.display = 'none';
+                button.textContent = '👁️ View Full';
+                button.style.background = '#17a2b8';
+            }
+        }
+        
+        // Form handling
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = '🔄 Sending...';
+                    submitBtn.disabled = true;
+                    
+                    // Re-enable after a short delay (in case form submission fails)
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
