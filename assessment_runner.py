@@ -62,36 +62,41 @@ def main():
     all_passed = True
     
     # Define Python command path
-    python_cmd = "C:/Users/piyus/AppData/Local/Programs/Python/Python313/project/Cryptography_Assignment/crypto_env/Scripts/python.exe"
-    if not Path(python_cmd).exists():
+    python_cmd = "python"  # Use system Python (assumes virtual environment is activated)
+    
+    # Check if we're in a virtual environment
+    if hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix):
+        print("✅ Virtual environment detected")
+    else:
+        print("⚠️  Virtual environment not detected - please activate with: crypto_env\\Scripts\\activate")
         python_cmd = "python"  # Fallback to system Python
     
     # Assessment tests
     tests = [
         {
             "name": "Module Import Test",
-            "command": f'"{python_cmd}" -c "import sys; sys.path.append(\'src\'); import crypto_protocol; print(\'All modules imported successfully\')"',
+            "command": f'{python_cmd} -c "import sys; sys.path.append(\'src\'); import crypto_protocol; print(\'All modules imported successfully\')"',
             "description": "Verify all modules can be imported"
         },
         {
             "name": "Unit Test Suite",
-            "command": f'"{python_cmd}" -m pytest tests/ -v --tb=short',
+            "command": f'{python_cmd} -m pytest tests/ -v --tb=short',
             "description": "Run comprehensive unit tests (17 tests expected)"
         },
         {
             "name": "Security Features Test",
-            "command": f'"{python_cmd}" -c "import sys; sys.path.append(\'src\'); from key_management import KeyManager; km = KeyManager(); k = km.generate_rsa_keypair(); print(f\'RSA key size: {{k[1].key_size}} bits\')"',
+            "command": f'{python_cmd} -c "import sys; sys.path.append(\'src\'); from key_management import KeyManager; km = KeyManager(); k = km.generate_rsa_keypair(); print(f\'RSA key size: {{k[1].key_size}} bits\')"',
             "description": "Verify cryptographic functionality"
         },
         {
             "name": "Complete Protocol Demonstration", 
-            "command": f'"{python_cmd}" examples/demo_transaction.py',
+            "command": f'{python_cmd} examples/demo_transaction.py',
             "description": "Run full property transaction protocol",
             "timeout": 30
         },
         {
             "name": "Documentation Check",
-            "command": f'"{python_cmd}" -c "with open(\'docs/report.md\', \'r\', encoding=\'utf-8\') as f: words=len(f.read().split()); print(f\'Report contains {{words}} words (target: 2500+)\')"',
+            "command": f'{python_cmd} -c "with open(\'docs/report.md\', \'r\', encoding=\'utf-8\') as f: words=len(f.read().split()); print(f\'Report contains {{words}} words (target: 2500+)\')"',
             "description": "Verify documentation completeness"
         }
     ]

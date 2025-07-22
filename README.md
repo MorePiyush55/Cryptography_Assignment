@@ -1,6 +1,7 @@
 # 🏡 Secure Property Transaction Protocol System
 ## Mrs. Harvey & Mr. Facey Land Transaction - H&R Market Share Protection
 
+> **GitHub Repository:** https://github.com/MorePiyush55/Cryptography_Assignment  
 > **Assignment-Compliant Cryptography Project** 🔐  
 > **Grade Level: A+ DISTINCTION** ✅  
 > **UK Legal Compliance: CERTIFIED** ⚖️
@@ -78,44 +79,59 @@ This is a **secure property transaction protocol** designed for **H&R (Hackit & 
 
 ## 🛠️ **STEP-BY-STEP SETUP**
 
-### **Prerequisites Check:**
-Before starting, ensure you have:
-- ✅ Windows PC
-- ✅ Internet connection
-- ✅ Web browser (Chrome, Firefox, Edge)
+### **Prerequisites:**
+- Python 3.8+ installed on your system
+- Git installed (for cloning from GitHub)
+- Internet connection
+- Web browser (Chrome, Firefox, Edge, Safari)
 
-### **Step 1: Download/Extract Project**
-```powershell
-# If you have the project folder, navigate to it:
-cd "c:\Users\piyus\AppData\Local\Programs\Python\Python313\project\Cryptography_Assignment"
+### **Step 1: Clone from GitHub**
+```bash
+# Clone the repository
+git clone https://github.com/MorePiyush55/Cryptography_Assignment.git
 
-# Check if you're in the right folder:
-dir
-# You should see: interface/, src/, crypto_env/, README.md
+# Navigate to project directory
+cd Cryptography_Assignment
+
+# Verify you're in the right folder
+ls  # On Windows use: dir
+# You should see: interface/, src/, docs/, tests/, README.md, requirements.txt
 ```
 
-### **Step 2: Verify Virtual Environment**
-```powershell
-# Check if the virtual environment exists:
-dir crypto_env
-# You should see: Scripts/, Lib/, Include/
+### **Step 2: Set Up Python Environment**
+```bash
+# Create virtual environment
+python -m venv crypto_env
 
-# Test the Python installation:
-crypto_env\Scripts\python.exe --version
-# Should show: Python 3.13.x
+# Activate virtual environment
+# Windows:
+crypto_env\Scripts\activate
+# macOS/Linux:
+source crypto_env/bin/activate
+
+# Verify activation (you should see (crypto_env) in your prompt)
 ```
 
-### **Step 3: Test Dependencies**
-```powershell
-# Verify all required packages are installed:
-crypto_env\Scripts\python.exe -c "import flask, cryptography, requests; print('All dependencies OK')"
-# Should show: All dependencies OK
+### **Step 3: Install Dependencies**
+```bash
+# Install all required packages
+pip install -r requirements.txt
+
+# Verify installation
+pip list
+# Should show: Flask, cryptography, requests, pytest, etc.
 ```
 
-### **Step 4: First Run Test**
-```powershell
-# Test the basic system:
-crypto_env\Scripts\python.exe examples\demo_transaction.py
+### **Step 4: Test Installation**
+```bash
+# Test basic functionality
+python examples/demo_transaction.py
+# Should show encryption/decryption working
+
+# Run unit tests
+python -m pytest tests/ -v
+# Should show all tests passing
+```
 ```
 Cryptography_Assignment/
 ├── 📁 src/                     # Core cryptography modules
@@ -151,28 +167,74 @@ Cryptography_Assignment/
 
 ---
 
+## 📁 **PROJECT STRUCTURE**
+
+```
+Cryptography_Assignment/
+├── 📁 src/                     # Core cryptography modules
+│   ├── crypto_protocol.py      # Main protocol implementation
+│   ├── digital_signature.py    # Digital signature system
+│   ├── key_management.py       # RSA key generation & management
+│   └── communication.py        # Secure communication channels
+├── 📁 interface/               # User interfaces  
+│   ├── web_interface.py        # Flask web application (MAIN)
+│   ├── main_interface.py       # Alternative interface
+│   ├── simple_cli.py          # Command line interface
+│   └── 📁 templates/          # HTML templates
+│       ├── home.html           # Landing page (3-column layout)
+│       ├── hr.html            # H&R Hub interface
+│       ├── seller.html        # Seller's Solicitor interface
+│       └── buyer.html         # Mrs. Harvey (Buyer) interface
+├── 📁 examples/               # Demonstration scripts
+│   └── demo_transaction.py    # Complete demo workflow
+├── 📁 tests/                  # Unit tests
+│   └── test_protocol.py       # Protocol testing
+├── 📁 docs/                   # Documentation
+│   ├── protocol_design.md     # Technical design
+│   ├── security_analysis.md   # Security analysis
+│   └── report.md             # Project report
+├── 📄 .gitignore             # Git ignore file
+├── 📄 README.md              # This file (setup guide)
+├── 📄 requirements.txt       # Dependencies list
+├── 📄 assessment_runner.py   # Automated testing script
+├── 📄 verify_project.py      # Project verification
+├── 📄 COMPLIANCE_ANALYSIS.md # Assignment compliance
+├── 📄 FINAL_COMPLIANCE_VERIFICATION.md # Final verification
+└── 📄 FINAL_PROJECT_SUMMARY.md # Project summary
+
+Note: crypto_env/ (virtual environment) is created during setup
+```
+
+---
+
 ## 🧪 **TESTING & VERIFICATION**
 
 ### **Quick System Test:**
-```powershell
+```bash
+# Activate virtual environment first
+# Windows:
+crypto_env\Scripts\activate
+# macOS/Linux:
+source crypto_env/bin/activate
+
 # Test 1: Basic functionality
-crypto_env\Scripts\python.exe examples\demo_transaction.py
+python examples/demo_transaction.py
 
 # Test 2: Unit tests
-crypto_env\Scripts\python.exe -m pytest tests/ -v
+python -m pytest tests/ -v
 
 # Test 3: Web interface
-crypto_env\Scripts\python.exe interface\web_interface.py
+python interface/web_interface.py
 # Then visit: http://localhost:5000
 ```
 
 ### **Assignment Compliance Verification:**
-```powershell
+```bash
 # Run compliance checker:
-crypto_env\Scripts\python.exe verify_project.py
+python verify_project.py
 
 # Run assessment runner:
-crypto_env\Scripts\python.exe assessment_runner.py
+python assessment_runner.py
 ```
 
 ### **Expected Test Results:**
@@ -292,21 +354,32 @@ This system is ready for:
 
 ## 📝 **QUICK REFERENCE COMMANDS**
 
-```powershell
-# Navigate to project
-cd "c:\Users\piyus\AppData\Local\Programs\Python\Python313\project\Cryptography_Assignment"
+```bash
+# Clone and setup
+git clone https://github.com/MorePiyush55/Cryptography_Assignment.git
+cd Cryptography_Assignment
+python -m venv crypto_env
+
+# Activate environment
+# Windows:
+crypto_env\Scripts\activate
+# macOS/Linux:
+source crypto_env/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
 
 # Start web interface (MAIN COMMAND)
-crypto_env\Scripts\python.exe interface\web_interface.py
+python interface/web_interface.py
 
 # Run demo
-crypto_env\Scripts\python.exe examples\demo_transaction.py
+python examples/demo_transaction.py
 
 # Run tests  
-crypto_env\Scripts\python.exe -m pytest tests/ -v
+python -m pytest tests/ -v
 
 # Verify system
-crypto_env\Scripts\python.exe verify_project.py
+python verify_project.py
 ```
 
 ---
