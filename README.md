@@ -130,8 +130,161 @@ python examples/demo_transaction.py
 
 # Run unit tests
 python -m pytest tests/ -v
-# Should show all tests passing
+## 🚀 **HOW TO RUN THE SYSTEM**
+
+### **Method 1: Web Interface (Recommended)**
+```bash
+# Activate virtual environment
+# Windows:
+crypto_env\Scripts\activate
+# macOS/Linux:
+source crypto_env/bin/activate
+
+# Start the web interface
+python interface/web_interface.py
+
+# Expected output:
+# * Running on http://127.0.0.1:5000
+# * Running on http://localhost:5000
 ```
+
+**Then open browser:** `http://localhost:5000`
+
+### **Method 2: Command Line Interface**
+```bash
+# Activate virtual environment first (see above)
+python interface/simple_cli.py
+```
+
+### **Method 3: Main Interface**
+```bash
+# Activate virtual environment first (see above)
+python interface/main_interface.py
+```
+
+### **Method 4: Demo Transaction**
+```bash
+# Activate virtual environment first (see above)
+python examples/demo_transaction.py
+```
+
+---
+
+## 💻 **INTERFACE USAGE GUIDE**
+
+### **🏠 Home Page** (`http://localhost:5000`)
+**What you see:**
+- Three interface options in a row
+- Professional design with security features
+- Quick access buttons to all systems
+
+**How to use:**
+1. Click **"H&R Hub"** for central management
+2. Click **"Seller's Solicitor"** for seller interface  
+3. Click **"Mrs. Harvey (Buyer)"** for buyer interface
+
+### **🏢 H&R Hub Interface** (`http://localhost:5000/hr`)
+**What you see:**
+- **Assignment Protocol Compliance Monitor** (Real-time rules)
+- **Send Message** section
+- **Received Messages** (expandable)
+- **Transaction History** 
+- **Digital Signature** section
+
+**How to use:**
+1. **Send Messages:** Type message → Select recipient → Click "Send"
+2. **View Messages:** Click "Show/Hide Messages" to expand
+3. **Monitor Compliance:** Check real-time rule enforcement
+4. **Track Contracts:** Monitor 4-step exchange process
+
+**Key Features:**
+- ✅ Can communicate with Seller's Solicitor
+- ✅ Can communicate with Mrs. Harvey
+- ❌ Cannot communicate directly with Mr. Facey (blocked)
+- 📋 Real-time assignment compliance monitoring
+
+### **👨‍💼 Seller's Solicitor Interface** (`http://localhost:5000/seller`)
+**What you see:**
+- **Send Message** form
+- **SENT Messages** history
+- **RECEIVED Messages** history
+- **Document Upload** section
+- **Digital Signature** tools
+
+**How to use:**
+1. **Send to H&R:** Type message → Click "Send Message"
+2. **Upload Documents:** Choose file → Upload contract
+3. **View History:** Expand SENT/RECEIVED sections
+4. **Digital Sign:** Use signature tools for contracts
+
+**Key Features:**
+- ✅ Can only communicate with H&R Hub
+- ❌ Cannot contact Mrs. Harvey directly (assignment rule)
+- 📄 Document upload and contract management
+- 🔏 Digital signature capabilities
+
+### **👩‍💼 Mrs. Harvey (Buyer) Interface** (`http://localhost:5000/buyer`)
+**What you see:**
+- **Send Message** form
+- **SENT Messages** history  
+- **RECEIVED Messages** history
+- **Document Management** section
+- **Digital Signature** tools
+
+**How to use:**
+1. **Send to H&R:** Type message → Click "Send Message"
+2. **Review Contracts:** Check received documents
+3. **Digital Sign:** Sign contracts electronically
+4. **Track Progress:** Monitor transaction status
+
+**Key Features:**
+- ✅ Can only communicate with H&R Hub
+- ❌ Cannot contact Seller's Solicitor directly (assignment rule)
+- 📋 Contract review and signing
+- 📊 Transaction progress tracking
+
+---
+
+## ⚙️ **HOW THE SYSTEM WORKS**
+
+### **🔐 Security Architecture:**
+```
+RSA-2048 Encryption + AES-256 Symmetric Encryption
+         ↓
+Digital Signatures (UK Legal Compliance)
+         ↓
+Three-Party Communication Protocol
+         ↓
+Assignment Rules Enforcement
+```
+
+### **📡 Communication Flow:**
+```
+Seller's Solicitor ←→ H&R Hub ←→ Mrs. Harvey
+        ↑                ↓
+   (Allowed)        (Hub Control)
+        ↓                ↑
+❌ Direct Seller ↔ Buyer (BLOCKED)
+❌ H&R ↔ Mr. Facey Direct (BLOCKED)
+```
+
+### **📋 Contract Exchange Process (4 Steps):**
+1. **Step 1:** Seller's Solicitor → H&R (Contract received)
+2. **Step 2:** H&R → Mrs. Harvey (Contract forwarded)  
+3. **Step 3:** Mrs. Harvey → H&R (Digitally signed contract)
+4. **Step 4:** H&R → Seller's Solicitor (Signed contract delivered)
+
+### **🛡️ Security Scenarios:**
+- **Scenario A:** Existing H&R ↔ Mrs. Harvey relationship (simplified)
+- **Scenario B:** First-time H&R ↔ Seller's Solicitor (full setup)
+
+### **⚖️ UK Legal Compliance:**
+- Digital signatures legally binding under UK Electronic Signature Regulations
+- Complete audit trail for all communications
+- Contract exchange process follows UK property law
+- Document integrity verification
+
+---
 ```
 Cryptography_Assignment/
 ├── 📁 src/                     # Core cryptography modules
@@ -250,20 +403,26 @@ python assessment_runner.py
 
 ### **Problem: "Module not found" error**
 **Solution:**
-```powershell
+```bash
 # Make sure you're using the virtual environment:
-crypto_env\Scripts\python.exe -c "import sys; print(sys.executable)"
+# Windows:
+crypto_env\Scripts\python -c "import sys; print(sys.executable)"
+# macOS/Linux:
+crypto_env/bin/python -c "import sys; print(sys.executable)"
 # Should show path with 'crypto_env'
 ```
 
 ### **Problem: Web interface won't start**
 **Solution:**
-```powershell
+```bash
 # Check if port 5000 is free:
+# Windows:
 netstat -an | findstr :5000
+# macOS/Linux:
+netstat -an | grep :5000
 
-# Try alternative port:
-# Edit web_interface.py and change: app.run(debug=True, port=5001)
+# Try alternative port by editing web_interface.py:
+# Change: app.run(debug=True, port=5001)
 ```
 
 ### **Problem: Browser shows "Connection refused"**
@@ -274,20 +433,31 @@ netstat -an | findstr :5000
 
 ### **Problem: Templates not loading**
 **Solution:**
-```powershell
+```bash
 # Make sure you're in the project root directory:
-cd "c:\Users\piyus\AppData\Local\Programs\Python\Python313\project\Cryptography_Assignment"
+cd Cryptography_Assignment
 
 # Check templates exist:
+# Windows:
 dir interface\templates\
+# macOS/Linux:
+ls interface/templates/
 # Should show: buyer.html, hr.html, home.html, seller.html
 ```
 
-### **Problem: Permission errors**
+### **Problem: Permission errors (Windows)**
 **Solution:**
-```powershell
+```bash
 # Run PowerShell as Administrator, or try:
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### **Problem: Git authentication issues**
+**Solution:**
+```bash
+# Use HTTPS instead of SSH:
+git remote set-url origin https://github.com/MorePiyush55/Cryptography_Assignment.git
+git push -u origin master
 ```
 
 ---
@@ -295,11 +465,11 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ## 📞 **SUPPORT & ADDITIONAL INFO**
 
 ### **System Requirements:**
-- **OS:** Windows 10/11
-- **Python:** 3.13+ (included in crypto_env)
-- **RAM:** 2GB minimum
-- **Browser:** Any modern browser (Chrome, Firefox, Edge)
-- **Network:** Internet connection for first setup
+- **OS:** Windows 10+, macOS 10.14+, or Linux (Ubuntu 18.04+)
+- **Python:** 3.8+ (automatically installed in virtual environment)
+- **RAM:** 2GB minimum, 4GB recommended
+- **Browser:** Any modern browser (Chrome, Firefox, Edge, Safari)
+- **Network:** Internet connection for initial setup
 
 ### **Performance:**
 - **Startup Time:** ~3 seconds
